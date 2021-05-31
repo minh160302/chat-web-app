@@ -1,4 +1,12 @@
-# React - Material UI boilerplate
+# React - Material UI Chat web
+
+Initial commit:
+- Basic integration with Spring Security
+
+
+## WARNING: 
+API still calls to auth-service, not zuul service due to CORS
+
 @Copyright2021 - Minh Nguyen
 
 Configuration for:
