@@ -65,7 +65,7 @@ function LoginPage(props) {
         const accessToken = await storeAuthToken(result.data.token)
         if (accessToken.success) {
           console.log(props)
-          props.history.push("/m")
+          props.history.push("/o")
         }
 
       } else {

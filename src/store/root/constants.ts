@@ -1,5 +1,7 @@
 export const AUTH = {
-  sendRegisterInfo: "auth/SEND_REGISTER_INFO"
+  sendRegisterInfo: "auth/SEND_REGISTER_INFO",
+  verifyAuthToken: "auth/VERIFY_AUTH_TOKEN",
+  reloadWithToken: "auth/RELOAD_WITH_TOKEN",
 }
 
 

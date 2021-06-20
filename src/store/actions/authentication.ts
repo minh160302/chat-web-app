@@ -6,3 +6,15 @@ export const sendRegisterInfo = (request: object) => {
     payload: request,
   };
 };
+
+export const verifyJwtToken = () => {
+  return {
+    type: AUTH.verifyAuthToken,
+  };
+};
+
+export const reloadWithToken = () => {
+  return {
+    type: AUTH.reloadWithToken,
+  };
+};

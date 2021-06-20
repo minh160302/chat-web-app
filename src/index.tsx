@@ -15,7 +15,7 @@ const render = Component =>
       <AppContainer>
         <Provider store={store}>
           <div>
-            {Component}
+            <Component />
           </div>
         </Provider>
       </AppContainer>
@@ -24,4 +24,4 @@ const render = Component =>
     document.getElementById("root")
   );
 
-render(<App />)
+render(App)
