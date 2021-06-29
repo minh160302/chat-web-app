@@ -24,7 +24,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import Messages from "../views/pages/user/main/ChatDialog"
 import ToolBoxInput from "components/CustomInput/ToolBoxInput"
 
-import { verifyJwtToken, reloadWithToken } from "../store/actions/authentication"
+import { verifyJwtToken, reloadWithToken, getCurrentUserInfo } from "../store/actions/authentication"
 import { connect } from "react-redux";
 import Loading from "../components/Loading/Loading";
 
@@ -93,6 +93,13 @@ export function MessagesLayout(props) {
   React.useEffect(() => {
     props.reloadWithToken()
   }, [])
+
+  // fetch user info after user authenticated
+  React.useEffect(() => {
+    if (props.isAuthenticated) {
+      props.getCurrentUserInfo();
+    }
+  }, [props.isAuthenticated])
 
   const redirectLogin = () => {
     history.push(ROUTE_PATH.AUTH);
@@ -279,7 +286,7 @@ export function MessagesLayout(props) {
                         {renderDataContent()}
                       </div>
                       {
-                        displayInfo &&
+                        !displayInfo &&
                         <div className={classes.conversationInfo}>
                           sss
                   </div>
@@ -309,17 +316,8 @@ const mapStateToProps = ({ authentication }) => {
 
 const mapDispatchToProps = {
   verifyJwtToken,
-  reloadWithToken
+  reloadWithToken,
+  getCurrentUserInfo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessagesLayout)
-
-// export default connect(
-//   ({ authentication }) => ({
-//     isAuthenticated: authentication.isAuthenticated,
-//     user: authentication.user,
-//   }),
-//   {
-//     getUserInfo
-//   }
-// )(MessagesLayout);

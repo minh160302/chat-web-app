@@ -24,6 +24,7 @@ ws.onclose = (CloseEvent) => {
 export const sendMessageService = (payload) => {
   try {
     ws.send(JSON.stringify(payload))
+    console.log("service message", payload)
     return payload
   } catch (error) {
     console.log(error)

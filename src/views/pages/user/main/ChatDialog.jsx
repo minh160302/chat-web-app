@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
+import CustomMessage from "../../../../components/CustomMessage/CustomMessage"
 
 import { connect } from "react-redux";
 
@@ -22,27 +23,31 @@ function ChatDialog(props) {
 
   return (
     <div className={classes.conversation}>
-      <div>content</div>
+      {/* <div>content</div> */}
       {
         props.allMessages?.map((message, i) => {
           return (
-            <div style={message.senderId === "xxx" ? { textAlign: "end" } : { textAlign: "start" }} key={i}>
-              <GridItem>{message.content}</GridItem>
+            <div style={message.senderId === props.currentUser.id ? { textAlign: "end" } : { textAlign: "start" }} key={i}>
+              <CustomMessage isCurrentUser={message.senderId === props.currentUser.id} content={message.content} />
             </div>
           )
         })
       }
     </div>
-  );
+  )
 }
 
-const mapStateToProps = ({ message }) => {
+const mapStateToProps = ({ message, authentication }) => {
   return {
-    allMessages: message.all
+    allMessages: message.all,
+    currentUser: authentication.currentUser
   };
 };
 
 const mapDispatchToProps = {
+
+
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatDialog);

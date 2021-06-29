@@ -98,7 +98,7 @@ function ToolBoxInput(props) {
     messageInfo.type = "CHAT"
     messageInfo.createdAt = new Date(Date.now()).toUTCString()
     messageInfo.deletedAt = ""
-    messageInfo.senderId = "xxx"
+    messageInfo.senderId = props.currentUser.id
     if (messageInfo.content !== "") {
       props.sendMessage(messageInfo)
       setInputValue("")
@@ -163,8 +163,10 @@ ToolBoxInput.propTypes = {
   setInputValue: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ }) => {
-  return {}
+const mapStateToProps = ({ authentication }) => {
+  return {
+    currentUser: authentication.currentUser
+  }
 }
 
 const mapDispatchToProps = {

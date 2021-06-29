@@ -21,7 +21,7 @@ import { ROUTE_PATH } from "../utils/constants"
 import bgImage from "assets/img/sidebar-2.jpg";
 import { connect } from "react-redux";
 
-import { verifyJwtToken, reloadWithToken } from "../store/actions/authentication"
+import { verifyJwtToken, reloadWithToken, getCurrentUserInfo } from "../store/actions/authentication"
 
 let ps;
 
@@ -90,6 +90,14 @@ function Overview(props) {
   React.useEffect(() => {
     props.reloadWithToken()
   }, [])
+
+
+  // fetch user info after user authenticated
+  React.useEffect(() => {
+    if (props.isAuthenticated) {
+      props.getCurrentUserInfo();
+    }
+  }, [props.isAuthenticated])
 
   // fetch session
   React.useEffect(() => {
@@ -218,7 +226,8 @@ const mapStateToProps = ({ authentication }) => {
 
 const mapDispatchToProps = {
   verifyJwtToken,
-  reloadWithToken
+  reloadWithToken,
+  getCurrentUserInfo
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Overview)

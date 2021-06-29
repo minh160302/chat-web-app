@@ -14,7 +14,6 @@ import "assets/css/material-dashboard-react.css?v=1.9.0";
 
 
 const hist = createBrowserHistory();
-console.log("fetch")
 const Routes = () => (
   <div className="view-routes">
     <Router history={hist}>

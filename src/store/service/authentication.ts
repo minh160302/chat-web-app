@@ -4,7 +4,7 @@ import { SERVICE_CONFIG } from "../../utils/service-config";
 
 export const verifyJwtToken = async () => {
   const token = localStorage.getItem("AUTH_TOKEN_KEY")
-  if(token){
+  if (token) {
     const res = await fetchAxios.onGet(`/api/auth/verify/${token}`)
     return res
   }
@@ -30,3 +30,10 @@ export const storeAuthToken = async (token) => {
     }
   }
 };
+
+export const getCurrentUserInfoService = async (token) => {
+  if (token) {
+    const res = await fetchAxios.onGet(`/api/auth/user/${token}`)
+    return res
+  }
+}

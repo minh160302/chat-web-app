@@ -18,3 +18,9 @@ export const reloadWithToken = () => {
     type: AUTH.reloadWithToken,
   };
 };
+
+export const getCurrentUserInfo = () => {
+  return {
+    type: AUTH.getCurrentUserInfo,
+  }
+}

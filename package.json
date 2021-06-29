@@ -25,7 +25,8 @@
     "react-swipeable-views": "0.13.9",
     "reactstrap": "^8.9.0",
     "sockjs-client": "^1.5.1",
-    "stompjs": "^2.3.3"
+    "stompjs": "^2.3.3",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "node scripts/start.js",
