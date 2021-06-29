@@ -5,18 +5,18 @@ import { SERVICE_CONFIG } from "../../utils/service-config";
 export const verifyJwtToken = async () => {
   const token = localStorage.getItem("AUTH_TOKEN_KEY")
   if (token) {
-    const res = await fetchAxios.onGet(`/api/auth/verify/${token}`)
+    const res = await fetchAxios.onGet(`${SERVICE_CONFIG.AUTH_SERVICE}/api/auth/verify/${token}`)
     return res
   }
 }
 
 export const registerService = async (payload) => {
-  const res = await fetchAxios.onPost(`/api/auth/register`, payload);
+  const res = await fetchAxios.onPost(`${SERVICE_CONFIG.AUTH_SERVICE}/api/auth/register`, payload);
   return res;
 };
 
 export const loginService = async (payload) => {
-  const res = await fetchAxios.onPost(`/api/auth/login`, payload);
+  const res = await fetchAxios.onPost(`${SERVICE_CONFIG.AUTH_SERVICE}/api/auth/login`, payload);
   return res;
 };
 
@@ -33,7 +33,7 @@ export const storeAuthToken = async (token) => {
 
 export const getCurrentUserInfoService = async (token) => {
   if (token) {
-    const res = await fetchAxios.onGet(`/api/auth/user/${token}`)
+    const res = await fetchAxios.onGet(`${SERVICE_CONFIG.AUTH_SERVICE}/api/auth/user/${token}`)
     return res
   }
 }

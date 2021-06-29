@@ -7,16 +7,14 @@ const fetchAxios = {
       .post(api, payload, {
         headers: {
           "Access-Control-Allow-Origin": "http://localhost:8762",
-          // "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods":
             "OPTIONS, HEAD, GET, POST, PUT, DELETE",
           "Access-Control-Allow-Headers":
             "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-          // "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
           "Content-Type": "application/json",
         },
-        // baseURL: `${SERVICE_CONFIG.SERVICE_API_URL}`,
-        baseURL: "http://localhost:8200",
+        baseURL: SERVICE_CONFIG.SERVICE_API_URL,
+        // baseURL: "http://localhost:8200",
       })
       .then((res) => {
         return res;
@@ -32,15 +30,13 @@ const fetchAxios = {
       .get(api, {
         headers: {
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods":
             "OPTIONS, HEAD, GET, POST, PUT, DELETE",
           "Access-Control-Allow-Headers":
             "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-          // "Access-Control-Request-Headers": "X-PINGOTHER, Content-Type",
         },
-        // baseURL: SERVICE_CONFIG.SERVICE_API_URL,
-        baseURL: "http://localhost:8200",
+        baseURL: SERVICE_CONFIG.SERVICE_API_URL,
+        // baseURL: "http://localhost:8200",
       })
       .then((res) => {
         return res.data;

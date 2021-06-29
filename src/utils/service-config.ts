@@ -1,4 +1,4 @@
 export const SERVICE_CONFIG = {
-  SERVICE_API_URL: "http://localhost:8762/",
+  SERVICE_API_URL: "http://localhost:8762",
   AUTH_SERVICE: "/auth-service"
 }
