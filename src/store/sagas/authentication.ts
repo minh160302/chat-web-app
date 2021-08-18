@@ -69,11 +69,19 @@ function* getCurrentUserInfo() {
   }
 }
 
+function* logOut() {
+  if (window.localStorage.getItem("AUTH_TOKEN_KEY")) {
+    window.localStorage.removeItem("AUTH_TOKEN_KEY")
+    window.location.reload()
+  }
+}
+
 export function* watchAuthentication() {
   yield takeEvery(AUTH.sendRegisterInfo, sendAuthenticationInfo);
   yield takeEvery(AUTH.verifyAuthToken, verifyAuthToken);
   yield takeEvery(AUTH.reloadWithToken, reloadWithToken);
   yield takeEvery(AUTH.getCurrentUserInfo, getCurrentUserInfo);
+  yield takeEvery(AUTH.logOut, logOut);
 }
 
 function* AuthenticationWatcher() {

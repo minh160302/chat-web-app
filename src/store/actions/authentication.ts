@@ -24,3 +24,9 @@ export const getCurrentUserInfo = () => {
     type: AUTH.getCurrentUserInfo,
   }
 }
+
+export const logOut = () => {
+  return {
+    type: AUTH.logOut,
+  }
+}

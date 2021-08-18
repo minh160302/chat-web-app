@@ -41,7 +41,7 @@ export default function LinearTabs(props) {
         variant="scrollable"
         scrollButtons="auto"
       >
-        {tabs.map((tab) =>
+        {tabs.map((tab, i) =>
           <Tab
             classes={{
               root: classes.tabRootButton,
@@ -49,9 +49,8 @@ export default function LinearTabs(props) {
               wrapper: classes.tabWrapper
             }}
             label={tab}
-          >
-            {tab}
-          </Tab>
+            key={i}
+          />
         )}
       </Tabs>
     </>

@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import ExtraMessagesSideBar from "../components/Sidebar/ExtraMessagesSidebar"
+import ExtraMessagesSideBar from "../components/Sidebar/ExtraMessagesSidebar.tsx"
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "user-routes";

@@ -9,6 +9,8 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SearchIcon from '@material-ui/icons/Search';
 import SendIcon from '@material-ui/icons/Send';
 import AddCircleRoundedIcon from '@material-ui/icons/AddCircleRounded';
+import ImageIcon from '@material-ui/icons/Image';
+import AttachmentIcon from '@material-ui/icons/Attachment';
 // core components
 import customSearchInputStyle from "assets/jss/material-dashboard-react/components/customSearchInputStyle.js";
 import { TextField } from "@material-ui/core";
@@ -17,7 +19,9 @@ import { mainColor } from "../../assets/jss/material-dashboard-react";
 
 import { sendMessage } from "../../store/actions/message"
 import { connect } from "react-redux";
-import SockJsClient from 'react-stomp';
+
+import io from "socket.io-client"
+import CustomPopper from "../CustomPopper/CustomPopper";
 
 const useStyles = makeStyles({
   ...customSearchInputStyle,
@@ -69,6 +73,7 @@ const useStyles = makeStyles({
   },
 });
 
+let socket
 function ToolBoxInput(props) {
   const classes = useStyles();
   const {
@@ -90,8 +95,45 @@ function ToolBoxInput(props) {
     setInputValue(event.target.value)
   }
 
-  // websocketclient
-  const [isPaused, setPause] = useState(false);
+  // socket io client
+  const ENDPOINT = "localhost:8300"
+
+  useEffect(() => {
+    socket = io(ENDPOINT)
+    console.log(props.currentUser)
+    const newInfo = {
+      name: "canhminh",
+      room: "sample_room",
+      senderId: "60b21a41bea3dc3c1914f3fc"
+    }
+
+    socket.emit("JOIN", newInfo, (result) => {
+      if (result?.error) {
+        alert(result.error)
+      }
+    })
+
+    // // clean up/unmounting
+    // return () => {
+    //   // socket.emit("disconnect");
+    //   console.log("on disconnecting....")
+    //   socket.off();
+    //   // socket.disconnect()
+    // }
+  }, []);
+
+
+  useEffect(() => {
+    socket.on("message", (message) => {
+      props.sendMessage(message)
+    })
+  }, [])
+
+  const sendMessageToSocket = (message) => {
+    socket.emit("sendMessage", message, () => {
+      setInputValue("")
+    });
+  }
 
   const handleSubmit = () => {
     messageInfo.content = inputValue
@@ -99,16 +141,39 @@ function ToolBoxInput(props) {
     messageInfo.createdAt = new Date(Date.now()).toUTCString()
     messageInfo.deletedAt = ""
     messageInfo.senderId = props.currentUser.id
+    // if (messageInfo.content !== "") {
+    //   props.sendMessage(messageInfo)
+    //   setInputValue("")
+    // }
     if (messageInfo.content !== "") {
-      props.sendMessage(messageInfo)
-      setInputValue("")
+      sendMessageToSocket(messageInfo)
     }
   }
 
 
-  useEffect(() => {
+  // popper state and handle functions
+  const [openMore, setOpenMore] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleCloseMore = () => setOpenMore(false)
+  const handleOpenMore = (event) => {
+    setOpenMore(true)
+    setAnchorEl(event.currentTarget);
+  }
 
-  }, []);
+  const toolbarOptions = [
+    {
+      text: <ImageIcon />,
+      handleFunction: () => {
+        console.log("image icon")
+      }
+    },
+    {
+      text: <AttachmentIcon />,
+      handleFunction: () => {
+        console.log("attachment icon")
+      }
+    },
+  ]
 
   return (
     <FormControl
@@ -127,7 +192,15 @@ function ToolBoxInput(props) {
           classes: { input: classes.inputSearch },
           startAdornment: (
             <InputAdornment position="start">
-              <AddCircleRoundedIcon classes={{ root: classes.iconRoot }} />
+              <AddCircleRoundedIcon classes={{ root: classes.iconRoot }} onClick={handleOpenMore} />
+              <CustomPopper
+                openMore={openMore}
+                anchorEl={anchorEl}
+                handleCloseMore={handleCloseMore}
+                handleOpenMore={handleOpenMore}
+                options={toolbarOptions}
+                placement="top-start"
+              />
             </InputAdornment>
           ),
           endAdornment: (
