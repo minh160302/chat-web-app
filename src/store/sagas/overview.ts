@@ -6,6 +6,7 @@ const fetchUserApi = (payload) => {
   return payload + 1000;
 };
 
+// saga function
 function* getOverview(action) {
   try {
     const newData = yield call(fetchUserApi, action.payload);
@@ -23,7 +24,7 @@ function* getOverview(action) {
 }
 
 export function* watchGetOverview() {
-  yield takeEvery(OVERVIEW.getOverview, getOverview);
+  yield takeLatest(OVERVIEW.getOverview, getOverview);
 }
 
 function* OverviewWatcher() {

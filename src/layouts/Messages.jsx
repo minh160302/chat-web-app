@@ -13,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import ExtraMessagesSideBar from "../components/Sidebar/ExtraMessagesSidebar"
+import ExtraMessagesSideBar from "../components/Sidebar/ExtraMessagesSidebar.tsx"
 import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "user-routes";
@@ -23,6 +23,11 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 // Messages components:
 import Messages from "../views/pages/user/main/ChatDialog"
 import ToolBoxInput from "components/CustomInput/ToolBoxInput"
+
+import { verifyJwtToken, reloadWithToken, getCurrentUserInfo } from "../store/actions/authentication"
+import { connect } from "react-redux";
+import Loading from "../components/Loading/Loading";
+
 
 var ps;
 
@@ -83,7 +88,41 @@ export function MessagesLayout(props) {
     }
   }, [])
 
+
+  // keep props.isAuthenticated value unchanged when reload
   React.useEffect(() => {
+    props.reloadWithToken()
+  }, [])
+
+  // fetch user info after user authenticated
+  React.useEffect(() => {
+    if (props.isAuthenticated) {
+      props.getCurrentUserInfo();
+    }
+  }, [props.isAuthenticated])
+
+  const redirectLogin = () => {
+    history.push(ROUTE_PATH.AUTH);
+  }
+
+  // fetch session
+  React.useEffect(() => {
+    console.log(`fetchSession: ${fetchSession}`);
+
+    async function fetchUserInfo() {
+      try {
+        await props.verifyJwtToken();
+      } catch (e) {
+      } finally {
+        console.log("fffff", fetchSession)
+        setFetchSession(true);
+        console.log(props.isAuthenticated);
+      }
+    }
+
+    fetchUserInfo();
+
+
     resizeFunction();
 
     if (navigator.platform.indexOf("Win") > -1) {
@@ -216,60 +255,69 @@ export function MessagesLayout(props) {
   return (
     <>
       <div className={classes.wrapper}>
-        {/* {props.isAuthenticated && */}
-        <Sidebar
-          routes={routes}
-          logo={logo}
-          handleDrawerToggle={handleDrawerToggle}
-          open={mobileOpen}
-          color={color}
-          miniActive={displaySetting}
-          {...rest}
-        />
-        {/* } */}
+        {
+          fetchSession && props.isAuthenticated &&
+          <Sidebar
+            routes={routes}
+            logo={logo}
+            handleDrawerToggle={handleDrawerToggle}
+            open={mobileOpen}
+            color={color}
+            miniActive={displaySetting}
+            {...rest}
+          />
+        }
         <div className={mainPanelClasses} ref={mainPanel}>
-          <>
-            {/* {props.isAuthenticated ? */}
-            <>
-              <div id="main" style={{ display: "flex" }}>
-                {displaySetting &&
-                  <div className={classes.messagesSidebar}>
-                    <ExtraMessagesSideBar />
-                  </div>
-                }
-                {/* <FixedPlugin 
+          {
+            fetchSession ?
+              <>
+                {fetchSession && props.isAuthenticated ?
+                  <>
+                    <div id="main" style={{ display: "flex" }}>
+                      {displaySetting &&
+                        <div className={classes.messagesSidebar}>
+                          <ExtraMessagesSideBar />
+                        </div>
+                      }
+                      {/* <FixedPlugin 
                   handleFixedClick={handleFixedClick}
                 /> */}
-                <div className={classes.messagesContainer}>
-                  {renderDataContent()}
-                </div>
-                {
-                  displayInfo &&
-                  <div className={classes.conversationInfo}>
-                    sss
+                      <div className={classes.messagesContainer}>
+                        {renderDataContent()}
+                      </div>
+                      {
+                        !displayInfo &&
+                        <div className={classes.conversationInfo}>
+                          sss
                   </div>
+                      }
+                    </div>
+                  </> :
+                  <>
+                    {redirectLogin()}
+                  </>
                 }
-              </div>
-            </>
-            {/* <>
-                {redirectLogin()}
-              </> */}
-            {/* } */}
-          </>
+              </> :
+              <>
+                <Loading />
+              </>
+          }
         </div>
       </div>
     </>
   );
 }
 
-export default MessagesLayout
+const mapStateToProps = ({ authentication }) => {
+  return {
+    isAuthenticated: authentication.isAuthenticated
+  }
+}
 
-// export default connect(
-//   ({ authentication }) => ({
-//     isAuthenticated: authentication.isAuthenticated,
-//     user: authentication.user,
-//   }),
-//   {
-//     getUserInfo
-//   }
-// )(MessagesLayout);
+const mapDispatchToProps = {
+  verifyJwtToken,
+  reloadWithToken,
+  getCurrentUserInfo
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesLayout)

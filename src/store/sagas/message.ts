@@ -7,7 +7,6 @@ import { sendMessageService } from "../service/message";
 function* sendMessage(action) {
   try {
     const newData = yield call(sendMessageService, action.payload);
-    console.log(newData);
     yield put({
       type: SUCCESS(MESSAGE.sendMessage),
       payload: newData,

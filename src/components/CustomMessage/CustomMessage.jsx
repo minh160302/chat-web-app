@@ -20,7 +20,9 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "2px",
   },
   currentUser: {
-    float: "right"
+    float: "right",
+    background: "#f0f0f5",
+    color: "#000000"
   },
 }))
 
