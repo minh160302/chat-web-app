@@ -12,9 +12,10 @@ export const createConversationService = async (payload: object) => {
   }
 };
 
-export const getConversationsByTypeService = async (payload: string) => {
+export const getConversationsByTypeService = async (payload: any) => {
+  const { userId, status } = payload
   try {
-    const res = await axios.get(`/conversation/type/${payload}`)
+    const res = await axios.get(`/conversation/user/${userId}/status/${status}`)
     return res;
   } catch (error) {
     console.log(error)

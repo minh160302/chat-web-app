@@ -1,7 +1,7 @@
 import { createStyles, Grid, makeStyles, Theme } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 
-import Button from "../CustomButtons/Button.js"
+import Button from "components/CustomButtons/Button"
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -115,7 +115,7 @@ const mapStateToProps = ({ user, conversation }: IRootState) => {
     user: user.user,
     error: user.message,
     conversationError: conversation.errorMessage,
-    conversationSuccess: conversation.success
+    conversationSuccess: conversation.createSuccess
   }
 }
 

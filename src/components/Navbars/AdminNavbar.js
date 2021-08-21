@@ -16,7 +16,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 // core components
 import AdminNavbarLinks from "./AdminNavbarLinks";
-import Button from "components/CustomButtons/Button.js";
+import Button from "components/CustomButtons/Button";
 
 import styles from "assets/jss/material-dashboard-react/components/adminNavbarStyle.js";
 

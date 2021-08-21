@@ -28,8 +28,6 @@ material-dashboard-react
 ├── ISSUE_TEMPLATE.md
 ├── LICENSE.md
 ├── README.md
-├── bower.json
-├── gulpfile.js
 ├── tsconfig.json
 ├── package.json
 ├── documentation

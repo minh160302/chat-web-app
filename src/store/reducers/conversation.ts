@@ -3,10 +3,11 @@ import { REQUEST, FAILURE, SUCCESS } from "../utils/async_types";
 
 const initialState = {
   errorMessage: "",
-  all: [],
+  conversations: [],
   loading: false,
   conversation: {},
   success: false,
+  createSuccess: false,
 };
 
 export type ConversationState = Readonly<typeof initialState>;
@@ -19,6 +20,7 @@ export default (state: ConversationState = initialState, action): ConversationSt
         loading: false,
         errorMessage: "",
         success: false,
+        createSuccess: false,
       }
     case REQUEST(CONVERSATION.createConversation):
     case REQUEST(CONVERSATION.getConversationsByType):
@@ -46,14 +48,14 @@ export default (state: ConversationState = initialState, action): ConversationSt
         loading: false,
         errorMessage: "",
         conversation: action.payload.data,
-        success: true
+        createSuccess: true
       };
     case SUCCESS(CONVERSATION.getConversationsByType):
       return {
         ...state,
         loading: false,
         errorMessage: "",
-        conversation: action.payload.data,
+        conversations: action.payload.data.data,
         success: true
       };
     default:

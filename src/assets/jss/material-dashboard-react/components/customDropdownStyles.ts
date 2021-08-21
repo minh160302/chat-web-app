@@ -118,7 +118,7 @@ const customDropdownStyle = (theme: Theme) => createStyles({
     transition: "all 150ms linear",
     display: "block",
     clear: "both",
-    fontWeight: "400",
+    fontWeight: 400,
     height: "40px",
     color: grayColor[7],
     whiteSpace: "nowrap",
