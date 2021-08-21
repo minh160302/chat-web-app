@@ -44,7 +44,7 @@ const messagesRoute = [
 
 export function MessagesLayout(props) {
   const history = useHistory();
-  const { ...rest } = props;
+  // const { ...rest } = props;
   // states and functions
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [miniActive, setMiniActive] = React.useState(true);
@@ -218,13 +218,15 @@ export function MessagesLayout(props) {
         <AdminNavbar
           sidebarMinimize={sidebarMinimize.bind(this)}
           miniActive={miniActive}
+          brandText=""
+          // color=""
           // brandText={getActiveRoute(messagesRoute)}
           handleDrawerToggle={handleDrawerToggle}
           displaySetting={displaySetting}
           infoMinimize={infoMinimize.bind(this)}
           settingMinimize={settingMinimize.bind(this)}
           displayInfo={displayInfo}
-          {...rest}
+          // {...rest}
         />
         <div className="layout-container">
           <div className={classes.content} style={{ display: "flex" }}>
@@ -264,7 +266,7 @@ export function MessagesLayout(props) {
             open={mobileOpen}
             color={color}
             miniActive={displaySetting}
-            {...rest}
+            // {...rest}
           />
         }
         <div className={mainPanelClasses} ref={mainPanel}>

@@ -5,7 +5,7 @@ import EventIcon from "@material-ui/icons/Event";
 import DraftsIcon from "@material-ui/icons/Drafts";
 
 // import components
-import DashboardPage from "views/Components/Dashboard/Dashboard.js";
+import HomePage from "./views/pages/user/main/HomePage.jsx"
 import ChatDialog from "./views/pages/user/main/ChatDialog.jsx";
 
 const routes = [
@@ -20,7 +20,7 @@ const routes = [
     path: "/dashboard",
     icon: EventIcon,
     brand: "Events",
-    component: DashboardPage,
+    component: HomePage,
     layout: ROUTE_PATH.OVERVIEW,
   },
   // {

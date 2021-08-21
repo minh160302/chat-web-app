@@ -77,24 +77,26 @@ const ExtraMessagesSideBar: React.FC<Props> = (props) => {
   // handle submit add new conversation
   const handleNewConversation = () => {
     const conversation: any = {
-      creator: {
-        user_id: props.currentUser.id,
-        username: props.currentUser.username,
-        profile_picture: "s3_url",
-      },
-      visitor: {
-        user_id: props.visitor._id,
-        username: props.visitor.username,
-        profile_picture: "s3_url",
-      },
+      members: [props.currentUser.username, props.visitor.username],
+      // creator: {
+      //   user_id: props.currentUser.id,
+      //   username: props.currentUser.username,
+      //   profile_picture: "s3_url",
+      // },
+      // visitor: {
+      //   user_id: props.visitor._id,
+      //   username: props.visitor.username,
+      //   profile_picture: "s3_url",
+      // },
       createdAt: Date.now(),
+      updatedAt: Date.now(),
       status: "ACTIVE"
     }
-    
+
     props.createConversation(conversation)
 
     setUserInput("")
-    // handleCloseDialog()
+    handleCloseDialog()
   }
 
   // tab value

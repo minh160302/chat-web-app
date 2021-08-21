@@ -59,5 +59,6 @@ export default function LinearTabs(props) {
 
 LinearTabs.propTypes = {
   tabs: PropTypes.array.isRequired,
-  setTabValue: PropTypes.func.isRequired
+  setTabValue: PropTypes.func.isRequired,
+  defaultTab: PropTypes.number
 };

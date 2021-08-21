@@ -13,7 +13,7 @@ export const clearMessage = () => {
   };
 };
 
-export const getConversationsByType = (request: string) => {
+export const getConversationsByType = (request: any) => {
   return {
     type: CONVERSATION.getConversationsByType,
     payload: request

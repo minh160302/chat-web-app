@@ -1,31 +1,37 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "target": "ES5",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "baseUrl": "src",
+    "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es2015", "es2017", "dom", "es2016"],
-    "typeRoots": [
-      "node_modules/@types"
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "ES2015",
+      "ES2017",
+      "ES2016"
     ],
-    // "allowJs": true,
-    "types": ["node"],
-    "importHelpers": true,
+    // "types": [
+    //   "node"
+    // ],
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src",
-    "paths": {
-        "src/*": ["src/*"],
-        "pages/*": ["src/views/*"],
-    },
-    "resolveJsonModule": true
+    "strict": false,
+    // "skipDefaultLibCheck": false,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "allowJs": true,
+    "importHelpers": true
   },
   "include": [
-    "src/**/*",
-  ],
-  "exclude": [
-    "node_modules",
+    "src"
   ]
 }
