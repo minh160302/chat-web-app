@@ -1,11 +1,11 @@
 # React - Material UI Chat web
 
-Initial commit:
-- Basic integration with Spring Security
+- Authentication with Spring Security
+- Socket client
 
 
 ## WARNING: 
-API still calls to auth-service, not zuul service due to CORS
+API still calls to auth-service, not zuul service due to CORS --resolve
 
 @Copyright2021 - Minh Nguyen
 
@@ -13,6 +13,7 @@ Configuration for:
 * Router
 * Redux/Redux-Saga
 * Typescript
+* SocketIO
 
 ## Table of Contents
 * [File Structure](#file-structure)
@@ -22,7 +23,6 @@ Configuration for:
 Within the download you'll find the following directories and files:
 
 ```
-material-dashboard-react
 .
 ├── CHANGELOG.md
 ├── ISSUE_TEMPLATE.md
