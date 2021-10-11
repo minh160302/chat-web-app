@@ -1,8 +1,4 @@
-// import io from "socket.io-client";
-
-// const socket = io("localhost:8300")
-// console.log(socket)
-
+import axios from "axios";
 
 export const sendMessageService = (payload) => {
   try {
@@ -14,3 +10,13 @@ export const sendMessageService = (payload) => {
   }
   // return payload;
 };
+
+export const fetchMessagesByConversationIdService = async (payload) => {
+  try {
+    const res = await axios.get(`/conversation/${payload}`)
+    return res;
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+}

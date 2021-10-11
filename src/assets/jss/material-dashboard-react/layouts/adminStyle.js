@@ -31,7 +31,7 @@ const appStyle = (theme) => ({
   content: {
     padding: "0px 0px",
     marginBottom: "15px",
-    maxHeight: "calc(100vh - 148px)",
+    maxHeight: "100%",
     overflow: "scroll",
   },
   container,

@@ -22,3 +22,14 @@ export const getConversationsByTypeService = async (payload: any) => {
     return error;
   }
 };
+
+
+export const getConversationByIdService = async (payload: any) => {
+  try {
+    const res = await axios.get(`/conversation/${payload}`)
+    return res;
+  } catch (error) {
+    console.log(error)
+    return error;
+  }
+}

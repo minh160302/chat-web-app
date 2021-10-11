@@ -61,6 +61,7 @@ interface BasicProfileProps {
   id: string;
   updatedAt: string;
   members: Array<string>;
+  currentUsername: string;
 }
 
 const BasicProfile: React.FC<BasicProfileProps> = (props) => {
@@ -76,7 +77,10 @@ const BasicProfile: React.FC<BasicProfileProps> = (props) => {
       {/* <Item><Avatar className={styles.avatar}>S</Avatar></Item> */}
       <Item position={'middle'} pl={{ sm: 0.5, lg: 0.5 }}>
         <Typography component={'span'} className={styles.overline}>
-          <div>{props.members[1]}</div>
+          <div>{props.members
+            .filter((mem) => mem !== props.currentUsername)
+            .map(mem => <span>{mem},</span>)
+          }</div>
           <div className={styles.time}>{calculateTime(props.updatedAt)}</div>
         </Typography>
         <Typography component={'span'} className={styles.content}>{props.id}</Typography>
@@ -162,7 +166,9 @@ interface ConversationCardProps {
   active: boolean;
 }
 
-interface StateProps { }
+interface StateProps {
+  currentUser: any;
+}
 
 interface DispatchProps { }
 
@@ -187,12 +193,15 @@ const ConversationCard: React.FC<Props> = (props) => {
         id={conversation._id}
         updatedAt={conversation.updated_at}
         members={conversation.members}
+        currentUsername={props.currentUser.username}
       />
     </div>
   )
 }
 
-const mapStateToProps = () => ({})
+const mapStateToProps = ({ authentication }: IRootState) => ({
+  currentUser: authentication.currentUser
+})
 
 const mapDispatchToProps = {
 

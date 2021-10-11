@@ -17,11 +17,11 @@ import { TextField } from "@material-ui/core";
 import Button from "../CustomButtons/Button"
 import { mainColor } from "../../assets/jss/material-dashboard-react";
 
-import { sendMessage } from "../../store/actions/message"
 import { connect } from "react-redux";
 
 import io from "socket.io-client"
 import CustomPopper from "../CustomPopper/CustomPopper";
+import socket from "socket.io"
 
 const useStyles = makeStyles({
   ...customSearchInputStyle,
@@ -73,7 +73,7 @@ const useStyles = makeStyles({
   },
 });
 
-let socket
+// let socket
 function ToolBoxInput(props) {
   const classes = useStyles();
   const {
@@ -94,40 +94,7 @@ function ToolBoxInput(props) {
   const handleChange = (event) => {
     setInputValue(event.target.value)
   }
-
-  // socket io client
-  const ENDPOINT = "localhost:8300"
-
-  useEffect(() => {
-    socket = io(ENDPOINT)
-    console.log(props.currentUser)
-    const newInfo = {
-      name: "canhminh",
-      room: "sample_room",
-      senderId: "60b21a41bea3dc3c1914f3fc"
-    }
-
-    socket.emit("JOIN", newInfo, (result) => {
-      if (result?.error) {
-        alert(result.error)
-      }
-    })
-
-    // // clean up/unmounting
-    // return () => {
-    //   // socket.emit("disconnect");
-    //   console.log("on disconnecting....")
-    //   socket.off();
-    //   // socket.disconnect()
-    // }
-  }, []);
-
-
-  useEffect(() => {
-    socket.on("message", (message) => {
-      props.sendMessage(message)
-    })
-  }, [])
+  
 
   const sendMessageToSocket = (message) => {
     socket.emit("sendMessage", message, () => {
@@ -136,15 +103,12 @@ function ToolBoxInput(props) {
   }
 
   const handleSubmit = () => {
-    messageInfo.content = inputValue
+    messageInfo.content = inputValue.trim()
     messageInfo.type = "CHAT"
     messageInfo.createdAt = new Date(Date.now()).toUTCString()
     messageInfo.deletedAt = ""
     messageInfo.senderId = props.currentUser.id
-    // if (messageInfo.content !== "") {
-    //   props.sendMessage(messageInfo)
-    //   setInputValue("")
-    // }
+
     if (messageInfo.content !== "") {
       sendMessageToSocket(messageInfo)
     }
@@ -243,7 +207,7 @@ const mapStateToProps = ({ authentication }) => {
 }
 
 const mapDispatchToProps = {
-  sendMessage
+  
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ToolBoxInput);

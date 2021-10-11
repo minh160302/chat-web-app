@@ -12,24 +12,28 @@ export type MessageState = Readonly<typeof initialState>;
 
 export default (state: MessageState = initialState, action): MessageState => {
   switch (action.type) {
-    case REQUEST(MESSAGE.sendMessage):
+    case REQUEST(MESSAGE.fetchMessages):
+    case REQUEST(MESSAGE.fetchMessagesByConversationId):
       return {
         ...state,
         loading: true,
       };
-    case FAILURE(MESSAGE.sendMessage):
+    case FAILURE(MESSAGE.fetchMessages):
+    case FAILURE(MESSAGE.fetchMessagesByConversationId):
       return {
         ...state,
         loading: true,
         errorMessage: action.payload,
       };
-    case SUCCESS(MESSAGE.sendMessage):
-      console.log(action.payload);
-      
+    case SUCCESS(MESSAGE.fetchMessages):
       return {
         ...state,
-        message: action.payload,
-        all: [...state.all, action.payload],
+        all: action.payload.messages,
+      };
+    case SUCCESS(MESSAGE.fetchMessagesByConversationId):
+      return {
+        ...state,
+        all: action.payload.data.data.messages,
       };
 
     default:

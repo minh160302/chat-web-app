@@ -12,13 +12,16 @@ export const OVERVIEW = {
 }
 
 export const MESSAGE = {
-  sendMessage: "message/SEND_MESSAGE"
+  sendMessage: "message/SEND_MESSAGE",
+  fetchMessages: "message/FETCH_MESSAGES",
+  fetchMessagesByConversationId: "message/FETCH_MESSAGES_BY_CONVERSATION_ID"
 }
 
 export const CONVERSATION = {
   createConversation: "conversation/CREATE_CONVERSATION",
   clearMessage: "conversation/CLEAR_MESSAGE",
-  getConversationsByType: "conversation/GET_CONVERSATIONS_BY_TYPE"
+  getConversationsByType: "conversation/GET_CONVERSATIONS_BY_TYPE",
+  getConversationById: "conversation/GET_CONVERSATION_BY_ID"
 }
 
 export const USER = {
